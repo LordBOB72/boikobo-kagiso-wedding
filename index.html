@@ -27,35 +27,37 @@
             overflow-x: hidden;
         }
 
-        /* =========================================
-           ENVELOPE ANIMATION OVERLAY - FULL SCREEN
-           ========================================= */
         .envelope-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: #fdfbf7;
-            z-index: 9999; display: flex; align-items: center; justify-content: center;
-            transition: opacity 1.5s ease, visibility 1.5s ease;
-            overflow: hidden;
-        }
-        .envelope-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-
-        #envelope-frame {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            background-color: #000;
+            z-index: 9999;
+            overflow: hidden;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
+        }
+        .envelope-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        #envelope-frame {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
             object-fit: cover;
             cursor: pointer;
             transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Zoom animation for transition */
         #envelope-frame.zooming {
-            transform: scale(3);
+            transform: translate(-50%, -50%) scale(3);
         }
 
-        /* Click hint - prominent and animated */
         .click-hint {
             position: absolute; 
             bottom: 80px; 
@@ -74,6 +76,7 @@
             padding: 15px 30px;
             border-radius: 30px;
             border: 1px solid rgba(176, 137, 104, 0.3);
+            z-index: 10000;
         }
         .click-hint i {
             display: block;
@@ -90,7 +93,6 @@
             50% { transform: translateY(-8px); }
         }
 
-        /* Audio Control */
         .audio-control {
             position: fixed; bottom: 30px; right: 30px; z-index: 1000;
             background: #fff; border: 1px solid var(--secondary-color); border-radius: 50%;
@@ -102,9 +104,6 @@
         .audio-control:hover { transform: scale(1.1); }
         .audio-control i { color: var(--secondary-color); font-size: 1.2rem; }
 
-        /* =========================================
-           MAIN WEBSITE CONTENT
-           ========================================= */
         #main-content { opacity: 0; transition: opacity 1.5s ease; }
         #main-content.visible { opacity: 1; }
 
@@ -117,7 +116,6 @@
             text-align: center; font-size: 3.5rem; font-style: italic; margin-bottom: 20px; color: var(--primary-color);
         }
 
-        /* Hero Section with Centered 3D Cake */
         .hero {
             position: relative; height: 100vh; display: flex; align-items: center; justify-content: center;
             overflow: hidden; background: var(--bg-color);
@@ -140,33 +138,28 @@
             color: var(--secondary-color); animation: bounce 2s infinite; text-decoration: none;
         }
 
-        /* General Sections */
         section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; text-align: center; }
         .bg-light { background-color: var(--light-bg); max-width: 100%; }
         .bg-light .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
         .intro-text { font-size: 1.5rem; font-style: italic; max-width: 700px; margin: 0 auto; color: var(--text-color); }
 
-        /* Countdown */
         .countdown-container { display: flex; justify-content: center; gap: 30px; margin-top: 30px; flex-wrap: wrap; }
         .countdown-item { text-align: center; }
         .countdown-number { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary-color); display: block; }
         .countdown-label { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; color: var(--secondary-color); }
 
-        /* Day Program */
         .program-list { max-width: 600px; margin: 0 auto; text-align: left; }
         .program-item { display: flex; margin-bottom: 20px; border-bottom: 1px solid rgba(176, 137, 104, 0.2); padding-bottom: 20px; }
         .program-time { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--secondary-color); min-width: 100px; font-weight: bold; }
         .program-details h4 { font-size: 1.2rem; margin-bottom: 5px; }
         .program-details p { font-size: 1rem; color: var(--text-color); }
 
-        /* Event Details Grid */
         .events-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
         .event-card { background: #fff; padding: 40px 30px; border: 1px solid rgba(176, 137, 104, 0.2); border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
         .event-card h3 { font-size: 1.8rem; margin-bottom: 10px; }
         .event-card .date { font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 2px; color: var(--secondary-color); margin-bottom: 15px; display: block; }
         .event-card p { font-size: 1.1rem; margin-bottom: 10px; }
 
-        /* Dress Code */
         .dresscode-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; text-align: left; }
         .dresscode-card { background: #fff; padding: 30px; border-radius: 8px; border: 1px solid rgba(176, 137, 104, 0.2); }
         .dresscode-card h3 { font-size: 1.5rem; margin-bottom: 5px; }
@@ -176,7 +169,6 @@
         .color-palette { display: flex; gap: 10px; margin-top: 15px; }
         .color-swatch { width: 30px; height: 30px; border-radius: 50%; border: 1px solid #ddd; }
 
-        /* RSVP Button */
         .rsvp-btn {
             display: inline-block; padding: 15px 40px; background-color: var(--secondary-color); color: #fff;
             text-decoration: none; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; letter-spacing: 2px;
@@ -184,7 +176,6 @@
         }
         .rsvp-btn:hover { background-color: var(--accent-color); }
 
-        /* Footer */
         footer { background-color: var(--primary-color); color: #fff; text-align: center; padding: 40px 20px; }
         footer .names { font-family: 'Pinyon Script', cursive; font-size: 3rem; margin-bottom: 10px; }
         footer p { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; letter-spacing: 2px; opacity: 0.8; }
@@ -197,17 +188,14 @@
 </head>
 <body>
 
-    <!-- Background Music -->
     <audio id="bg-music" loop preload="auto">
         <source src="Love Letters - James Quinn Cut.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Audio Toggle Button -->
     <div class="audio-control" id="audio-toggle">
         <i class="fas fa-volume-up" id="audio-icon"></i>
     </div>
 
-    <!-- Envelope Animation Overlay - Full Screen -->
     <div class="envelope-overlay" id="envelope-overlay">
         <img id="envelope-frame" src="frame1.png" alt="Wedding Envelope">
         <div class="click-hint" id="click-hint">
@@ -216,10 +204,8 @@
         </div>
     </div>
 
-    <!-- Main Website Content -->
     <div id="main-content">
         
-        <!-- Hero Section with Centered Minimalist 3D Cake -->
         <section class="hero">
             <div id="cake-canvas"></div>
             <div class="hero-content">
@@ -230,13 +216,11 @@
             <a href="#you-are-invited" class="scroll-indicator">Confirm Attendance <br> <i class="fas fa-chevron-down"></i></a>
         </section>
 
-        <!-- You Are Invited -->
         <section id="you-are-invited">
             <div class="section-title">You Are Invited</div>
             <p class="intro-text">The families of Boikobo Gaolebalwe & Kagiso Jorosi cordially invite you to celebrate their union.</p>
         </section>
 
-        <!-- Counting The Days -->
         <section class="bg-light">
             <div class="container">
                 <div class="section-title">Counting The Days</div>
@@ -250,7 +234,6 @@
             </div>
         </section>
 
-        <!-- Day Program -->
         <section class="bg-light">
             <div class="container">
                 <div class="section-title">Day Program</div>
@@ -266,14 +249,12 @@
             </div>
         </section>
 
-        <!-- Gifts -->
         <section>
             <div class="section-title">Gifts</div>
             <h2 class="section-heading">Your presence is what matters most</h2>
             <p class="intro-text">If you wish to give us a gift, you can do so in the way that suits you best. Contributions are warmly welcomed.</p>
         </section>
 
-        <!-- Event Details -->
         <section class="bg-light">
             <div class="container">
                 <div class="section-title">Join Us</div>
@@ -302,7 +283,6 @@
             </div>
         </section>
 
-        <!-- Dress Code -->
         <section>
             <div class="section-title">Dress Code</div>
             <h2 class="section-heading">Dress with Love</h2>
@@ -341,7 +321,6 @@
             </div>
         </section>
 
-        <!-- RSVP -->
         <section class="bg-light">
             <div class="container">
                 <div class="section-title">Be Our Guest</div>
@@ -352,14 +331,12 @@
             </div>
         </section>
 
-        <!-- Plan Your Visit -->
         <section>
             <div class="section-title">Plan Your Visit</div>
             <h2 class="section-heading">Travel & Accommodation</h2>
             <p class="intro-text" style="margin-bottom: 40px;">Guests are kindly requested to make their own accommodation and transport arrangements for the events. We look forward to celebrating with you!</p>
         </section>
 
-        <!-- Footer -->
         <footer>
             <div class="names">Boikobo & Kagiso</div>
             <p>10 - 19 July 2026</p>
@@ -368,12 +345,8 @@
     </div>
 
     <script>
-        // ==========================================
-        // ENVELOPE ANIMATION LOGIC
-        // ==========================================
         const totalFrames = 15;
-        const frameDuration = 100; // milliseconds per frame
-        let currentFrame = 1;
+        const frameDuration = 100;
         let isAnimating = false;
         
         const envelopeImg = document.getElementById('envelope-frame');
@@ -384,7 +357,6 @@
         const audioToggle = document.getElementById('audio-toggle');
         const audioIcon = document.getElementById('audio-icon');
 
-        // Preload images for smooth animation
         const images = [];
         for (let i = 1; i <= totalFrames; i++) {
             const img = new Image();
@@ -392,13 +364,11 @@
             images.push(img);
         }
 
-        // Click to start animation
         envelopeImg.addEventListener('click', () => {
             if (isAnimating) return;
             isAnimating = true;
             clickHint.style.display = 'none';
             
-            // Start music IMMEDIATELY, skipping first second
             bgMusic.currentTime = 1;
             bgMusic.volume = 0.5;
             bgMusic.play().catch(e => console.log("Audio play failed:", e));
@@ -411,7 +381,6 @@
                     envelopeImg.src = images[frameIndex].src;
                 } else {
                     clearInterval(animationInterval);
-                    // Zoom into the paper for smooth transition
                     envelopeImg.classList.add('zooming');
                     setTimeout(revealWebsite, 1500);
                 }
@@ -424,7 +393,6 @@
             audioToggle.classList.add('visible');
         }
 
-        // Audio Toggle Logic
         audioToggle.addEventListener('click', function() {
             if (bgMusic.paused) {
                 bgMusic.play();
@@ -435,9 +403,6 @@
             }
         });
 
-        // ==========================================
-        // MINIMALIST 3D GEOMETRIC CAKE (PERFECTLY CENTERED)
-        // ==========================================
         const container = document.getElementById('cake-canvas');
         const scene = new THREE.Scene();
         
@@ -532,9 +497,6 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // ==========================================
-        // COUNTDOWN & RSVP
-        // ==========================================
         function updateCountdown() {
             const now = new Date();
             const eventDate = new Date('2026-07-10T05:30:00');
