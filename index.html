@@ -303,6 +303,36 @@
             transform: translateY(-2px);
         }
 
+        .registry-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; text-align: left; }
+        .registry-card { 
+            background: #fff; 
+            padding: 35px 30px; 
+            border-radius: 8px; 
+            border: 1px solid rgba(176, 137, 104, 0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+        .registry-card h3 { font-size: 1.6rem; margin-bottom: 15px; color: var(--primary-color); }
+        .registry-card .store-name { 
+            font-family: 'Montserrat', sans-serif; 
+            font-size: 0.9rem; 
+            font-weight: 600;
+            color: var(--secondary-color);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .registry-card p { 
+            font-size: 1.1rem; 
+            color: var(--text-color);
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        .registry-card i { 
+            color: var(--secondary-color); 
+            margin-right: 8px; 
+            width: 20px;
+        }
+
         footer { background-color: var(--primary-color); color: #fff; text-align: center; padding: 40px 20px; }
         footer .names { font-family: 'Pinyon Script', cursive; font-size: 3rem; margin-bottom: 10px; }
         footer p { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; letter-spacing: 2px; opacity: 0.8; }
@@ -385,7 +415,28 @@
         <section>
             <div class="section-title">Gifts</div>
             <h2 class="section-heading">Your presence is what matters most</h2>
-            <p class="intro-text">If you wish to give us a gift, you can do so in the way that suits you best. Contributions are warmly welcomed.</p>
+            <p class="intro-text" style="margin-bottom: 40px;">If you wish to honour us with a gift, we have registered at the following stores for your convenience.</p>
+            
+            <div class="registry-grid">
+                <div class="registry-card">
+                    <div class="store-name">Pep Home</div>
+                    <h3>The Fields Mall</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Gaborone</p>
+                    <p style="margin-top: 15px; font-size: 0.95rem; color: #666; font-style: italic;">Please mention our names when making your selection.</p>
+                </div>
+                <div class="registry-card">
+                    <div class="store-name">Jet Home</div>
+                    <h3>Airport Junction Mall</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Gaborone</p>
+                    <p style="margin-top: 15px; font-size: 0.95rem; color: #666; font-style: italic;">Please mention our names when making your selection.</p>
+                </div>
+                <div class="registry-card">
+                    <div class="store-name">Jet Home</div>
+                    <h3>Game City Mall</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Gaborone</p>
+                    <p style="margin-top: 15px; font-size: 0.95rem; color: #666; font-style: italic;">Please mention our names when making your selection.</p>
+                </div>
+            </div>
         </section>
 
         <section class="bg-light">
@@ -449,7 +500,7 @@
                     <h4>Magadi & Kgoroso Events</h4>
                     <ul>
                         <li><strong>Women:</strong> Letsela dress/skirt (blue & white geometric diamond print), white blouse, Mogagolwane (blue tartan shoulder wrap), Tukwi (navy geometric head wrap), black shoes.</li>
-                        <li><strong>Men:</strong> Navy blue two-piece or three-piece suit with a white shirt. Tie & pocket square in Mapoka Letsela fabric.</li>
+                        <li><strong>Men:</strong> Navy blue two-piece or three-piece suit with a sky blue shirt. Tie & pocket square in Mapoka Letsela fabric.</li>
                     </ul>
                 </div>
                 <div class="dresscode-card">
@@ -457,7 +508,7 @@
                     <h4>Magadi & Kgoroso Events</h4>
                     <ul>
                         <li><strong>Women:</strong> Letsela dress/skirt (dark ground with white dotted florals & gold accents), white blouse, Tjale (white fringed shawl), Tukwi (brown & orange head wrap), black shoes.</li>
-                        <li><strong>Men:</strong> Black two-piece or three-piece suit with a white shirt. Tie & pocket square in Maun Letsela fabric.</li>
+                        <li><strong>Men:</strong> Black two-piece or three-piece suit with a sky blue shirt. Tie & pocket square in Maun Letsela fabric.</li>
                     </ul>
                 </div>
                 <div class="dresscode-card">
@@ -572,6 +623,7 @@
 
     <script>
         let isAnimating = false;
+        let transitionComplete = false;
         
         const envelopeVideo = document.getElementById('envelope-video');
         const envelopeOverlay = document.getElementById('envelope-overlay');
@@ -585,7 +637,7 @@
         const scrollIndicator = document.getElementById('scroll-indicator');
 
         envelopeVideo.addEventListener('click', () => {
-            if (isAnimating) return;
+            if (isAnimating || transitionComplete) return;
             isAnimating = true;
             clickHint.style.display = 'none';
             
@@ -597,6 +649,8 @@
             envelopeVideo.play();
 
             envelopeVideo.onended = () => {
+                if (transitionComplete) return;
+                transitionComplete = true;
                 envelopeOverlay.classList.add('exiting');
                 
                 setTimeout(() => {
@@ -627,7 +681,7 @@
         });
 
         document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
+            if (document.hidden && transitionComplete) {
                 bgMusic.pause();
             }
         });
