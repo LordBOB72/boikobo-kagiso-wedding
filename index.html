@@ -527,8 +527,8 @@
                     </div>
                 </div>
             </div>
-
-            <!-- NEW STANDALONE BUTTON -->
+            
+            <!-- Standalone Dress Code Button -->
             <div style="text-align: center; margin-top: 50px;">
                 <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-style: italic; color: var(--text-color); margin-bottom: 20px;">
                     View the complete visual guide with fabric swatches and outfit examples.
@@ -703,7 +703,9 @@
             
             const selectedEvents = [];
             document.querySelectorAll('input[name="events"]:checked').forEach(checkbox => {
-                selectedEvents.push(checkbox.value);
+                // Strip HTML tags (like <sup>) for clean WhatsApp output
+                const cleanEventName = checkbox.value.replace(/<[^>]*>/g, '');
+                selectedEvents.push(cleanEventName);
             });
             
             const eventsText = selectedEvents.length > 0 ? selectedEvents.join(', ') : 'None selected';
