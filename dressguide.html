@@ -46,31 +46,7 @@
             gap: 10px;
         }
 
-        .download-btn {
-            background: var(--burgundy);
-            color: var(--champagne);
-            border: none;
-            padding: 15px 30px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 3px;
-            box-shadow: 0 4px 15px rgba(128, 0, 32, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .download-btn:hover {
-            background: var(--burgundy-light);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(128, 0, 32, 0.4);
-        }
-
-        .back-btn {
-            background: transparent;
-            color: var(--burgundy);
-            border: 2px solid var(--burgundy);
+        .download-btn, .back-btn {
             padding: 15px 30px;
             font-family: 'Montserrat', sans-serif;
             font-size: 12px;
@@ -81,11 +57,63 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            border: 2px solid transparent;
+        }
+
+        /* DEFAULT STATE: Light Background (White/Cream sections) */
+        .download-btn {
+            background: var(--burgundy);
+            color: #FFFFFF;
+            border-color: var(--burgundy);
+            box-shadow: 0 4px 15px rgba(128, 0, 32, 0.3);
+        }
+
+        .download-btn:hover {
+            background: var(--burgundy-light);
+            border-color: var(--burgundy-light);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(128, 0, 32, 0.4);
+        }
+
+        .back-btn {
+            background: transparent;
+            color: var(--burgundy);
+            border-color: var(--burgundy);
         }
 
         .back-btn:hover {
             background: var(--burgundy);
-            color: var(--champagne);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+        /* DARK MODE STATE: Burgundy/Dark sections */
+        .download-controls.dark-mode .download-btn {
+            background: #FFFFFF;
+            color: var(--burgundy);
+            border-color: #FFFFFF;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-controls.dark-mode .download-btn:hover {
+            background: var(--champagne);
+            border-color: var(--champagne);
+            color: var(--burgundy);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-controls.dark-mode .back-btn {
+            background: transparent;
+            color: #FFFFFF;
+            border-color: #FFFFFF;
+        }
+
+        .download-controls.dark-mode .back-btn:hover {
+            background: #FFFFFF;
+            color: var(--burgundy);
+            transform: translateY(-2px);
         }
 
         /* Hero Section */
@@ -1005,6 +1033,32 @@
             // Users can then select "Save as PDF" as the destination
             window.print();
         }
+
+        // Dynamic Button Colors based on Scroll Position
+        const controls = document.querySelector('.download-controls');
+        const darkSections = document.querySelectorAll('.hero, .celebration-section, .footer');
+        let darkCount = 0;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    darkCount++;
+                } else {
+                    darkCount = Math.max(0, darkCount - 1);
+                }
+            });
+            
+            if (darkCount > 0) {
+                controls.classList.add('dark-mode');
+            } else {
+                controls.classList.remove('dark-mode');
+            }
+        }, {
+            threshold: 0,
+            rootMargin: "-10px 0px -90% 0px" // Only triggers when the dark section is at the very top where the buttons are
+        });
+
+        darkSections.forEach(section => observer.observe(section));
     </script>
 </body>
 </html>
